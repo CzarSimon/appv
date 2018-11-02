@@ -61,7 +61,6 @@ func createCli(appv *appv) *cli.App {
 	app.Usage = appUsage
 	app.Version = appVersion
 	app.Commands = appv.getCommands()
-	app.Flags = getGlobalFlags()
 	return app
 }
 
@@ -76,11 +75,30 @@ func (appv *appv) getCommands() []cli.Command {
 			Name:   "image",
 			Usage:  fmt.Sprintf("Prints the appv image name"),
 			Action: appv.image,
+			Flags:  getOutputFlags(),
+		},
+		cli.Command{
+			Name:   "name",
+			Usage:  fmt.Sprintf("Prints the appv project name"),
+			Action: appv.name,
+			Flags:  getOutputFlags(),
+		},
+		cli.Command{
+			Name:   "version",
+			Usage:  fmt.Sprintf("Prints the appv project version"),
+			Action: appv.version,
+			Flags:  getOutputFlags(),
+		},
+		cli.Command{
+			Name:   "registry",
+			Usage:  fmt.Sprintf("Prints the appv project container registry"),
+			Action: appv.registry,
+			Flags:  getOutputFlags(),
 		},
 	}
 }
 
-func getGlobalFlags() []cli.Flag {
+func getOutputFlags() []cli.Flag {
 	return []cli.Flag{
 		cli.BoolFlag{
 			Name:  "new-line, n",
