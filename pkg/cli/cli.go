@@ -18,7 +18,7 @@ var (
 const (
 	appName    = "appv"
 	appUsage   = "cli tool for keeping track of a package version."
-	appVersion = "0.1"
+	appVersion = "1.0"
 )
 
 type App interface {
@@ -68,30 +68,35 @@ func (appv *appv) getCommands() []cli.Command {
 	return []cli.Command{
 		cli.Command{
 			Name:   "init",
-			Usage:  fmt.Sprintf("Creates an appv file for the project"),
+			Usage:  "Creates an appv file for the project.",
 			Action: appv.init,
 		},
 		cli.Command{
+			Name:   "update",
+			Usage:  "Prompts the user for updates.",
+			Action: appv.update,
+		},
+		cli.Command{
 			Name:   "image",
-			Usage:  fmt.Sprintf("Prints the appv image name"),
+			Usage:  "Prints the appv image name",
 			Action: appv.image,
 			Flags:  getOutputFlags(),
 		},
 		cli.Command{
 			Name:   "name",
-			Usage:  fmt.Sprintf("Prints the appv project name"),
+			Usage:  "Prints the appv project name",
 			Action: appv.name,
 			Flags:  getOutputFlags(),
 		},
 		cli.Command{
 			Name:   "version",
-			Usage:  fmt.Sprintf("Prints the appv project version"),
+			Usage:  "Prints the appv project version",
 			Action: appv.version,
 			Flags:  getOutputFlags(),
 		},
 		cli.Command{
 			Name:   "registry",
-			Usage:  fmt.Sprintf("Prints the appv project container registry"),
+			Usage:  "Prints the appv project container registry",
 			Action: appv.registry,
 			Flags:  getOutputFlags(),
 		},
