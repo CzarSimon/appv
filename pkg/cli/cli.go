@@ -12,13 +12,13 @@ import (
 
 var (
 	errAppIsNotInitalized   = errors.New("Project is not tracked by appv. Have you run appv init?")
-	errAppAlreadyInitalized = errors.New("Project is already initalized.")
+	errAppAlreadyInitalized = errors.New("Project is already initalized. You maybe want to run: appv update?")
 )
 
 const (
 	appName    = "appv"
 	appUsage   = "cli tool for keeping track of a package version."
-	appVersion = "1.0"
+	appVersion = "0.9"
 )
 
 type App interface {
