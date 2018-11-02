@@ -2,6 +2,7 @@ package cli
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/CzarSimon/appv/pkg/schema"
 	"github.com/urfave/cli"
@@ -26,7 +27,19 @@ func getProjectFromUser() schema.Project {
 	project.Version = stringFromStdinWithDefault("Version", initalSugestedVersion)
 	project.Registry = stringFromStdin("Container registry")
 
+	if !confirmProject(project) {
+		return getProjectFromUser()
+	}
+
 	return project
+}
+
+func confirmProject(project schema.Project) bool {
+	fmt.Printf("Does this look ok?\n%s\n", project)
+	value := stringFromStdin("No to redo, any other key to confirm")
+	confirmation := strings.ToLower(value)
+
+	return confirmation != "no"
 }
 
 func stringFromStdin(description string) string {

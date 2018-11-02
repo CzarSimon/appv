@@ -1,6 +1,7 @@
 package schema
 
 import (
+	"encoding/json"
 	"fmt"
 )
 
@@ -14,9 +15,8 @@ type Project struct {
 }
 
 func (p Project) String() string {
-	return fmt.Sprintf(
-		"Project(name=%s version=%s registry=%s",
-		p.Name, p.Version, p.Registry)
+	rawJson, _ := json.MarshalIndent(p, "", "    ")
+	return fmt.Sprint(string(rawJson))
 }
 
 // Image returns the container image name that the project ought to create.

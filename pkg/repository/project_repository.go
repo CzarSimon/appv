@@ -36,12 +36,8 @@ func NewProjectRepo() *fileRepo {
 }
 
 func (r *fileRepo) Save(project schema.Project) error {
-	rawJson, err := json.Marshal(project)
-	if err != nil {
-		return err
-	}
-
-	return ioutil.WriteFile(PROJECT_FILE, rawJson, 0644)
+	projectAsBytes := []byte(project.String())
+	return ioutil.WriteFile(PROJECT_FILE, projectAsBytes, 0644)
 }
 
 func (r *fileRepo) Get() (schema.Project, error) {
