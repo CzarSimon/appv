@@ -75,7 +75,7 @@ func (appv *appv) getCommands() []cli.Command {
 		cli.Command{
 			Name:   "image",
 			Usage:  fmt.Sprintf("Prints the appv image name"),
-			Action: appv.init,
+			Action: appv.image,
 		},
 	}
 }

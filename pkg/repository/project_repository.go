@@ -45,16 +45,25 @@ func (r *fileRepo) Save(project schema.Project) error {
 }
 
 func (r *fileRepo) Get() (schema.Project, error) {
-	rawJson, err := ioutil.ReadFile(PROJECT_FILE)
-	if err == os.ErrNotExist {
-		return schema.EmptyProject, ErrNoProjectFound
+	err := checkForExistingProjectFile()
+	if err != nil {
+		return schema.EmptyProject, err
 	}
+
+	rawJson, err := ioutil.ReadFile(PROJECT_FILE)
 	if err != nil {
 		return schema.EmptyProject, err
 	}
 
 	var project schema.Project
 
-	err = json.Unmarshal(rawJson, &rawJson)
+	err = json.Unmarshal(rawJson, &project)
 	return project, err
+}
+
+func checkForExistingProjectFile() error {
+	if _, err := os.Stat(PROJECT_FILE); os.IsNotExist(err) {
+		return ErrNoProjectFound
+	}
+	return nil
 }
