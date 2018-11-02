@@ -4,6 +4,8 @@ import (
 	"fmt"
 )
 
+var EmptyProject = Project{}
+
 // Project holds the metadata about a project tracked by appv.
 type Project struct {
 	Name     string `json:"name"`
